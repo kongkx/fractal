@@ -1,5 +1,9 @@
 # Fractal
 
+## Custom Modificatino
+
+- change `Scope.php` -- `toArray` method, use `array_replace_recursive` for sideIncluded Data;
+
 [![Latest Version](https://img.shields.io/github/release/thephpleague/fractal.svg?style=flat-square)](https://github.com/thephpleague/fractal/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Build Status](https://img.shields.io/travis/thephpleague/fractal/master.svg?style=flat-square)](https://travis-ci.org/thephpleague/fractal)

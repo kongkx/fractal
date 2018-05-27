@@ -160,7 +160,7 @@ class Scope
             $scopeArray = [$checkScopeSegment];
         }
 
-        $scopeString = implode('.', (array) $scopeArray);
+        $scopeString = implode('.', (array)$scopeArray);
 
         return in_array($scopeString, $this->manager->getRequestedIncludes());
     }
@@ -188,7 +188,7 @@ class Scope
             $scopeArray = [$checkScopeSegment];
         }
 
-        $scopeString = implode('.', (array) $scopeArray);
+        $scopeString = implode('.', (array)$scopeArray);
 
         return in_array($scopeString, $this->manager->getRequestedExcludes());
     }
@@ -259,7 +259,8 @@ class Scope
                 );
             }
 
-            $data = $data + $includedData;
+            // $data = $data + $includedData;
+            $data = array_replace_recursive($data, $includedData);
         }
 
         if ($this->resource instanceof Collection) {
@@ -269,7 +270,7 @@ class Scope
                 $pagination = $serializer->paginator($this->resource->getPaginator());
             }
 
-            if (! empty($pagination)) {
+            if (!empty($pagination)) {
                 $this->resource->setMetaValue(key($pagination), current($pagination));
             }
         }
@@ -307,7 +308,7 @@ class Scope
      */
     public function transformPrimitiveResource()
     {
-        if (! ($this->resource instanceof Primitive)) {
+        if (!($this->resource instanceof Primitive)) {
             throw new InvalidArgumentException(
                 'Argument $resource should be an instance of League\Fractal\Resource\Primitive'
             );
@@ -354,7 +355,7 @@ class Scope
         } else {
             throw new InvalidArgumentException(
                 'Argument $resource should be an instance of League\Fractal\Resource\Item'
-                .' or League\Fractal\Resource\Collection'
+                    . ' or League\Fractal\Resource\Collection'
             );
         }
 
@@ -432,7 +433,7 @@ class Scope
     {
         $this->availableIncludes = $transformer->getAvailableIncludes();
 
-        return $transformer->processIncludedResources($this, $data) ?: [];
+        return $transformer->processIncludedResources($this, $data) ? : [];
     }
 
     /**
@@ -446,14 +447,14 @@ class Scope
      */
     protected function transformerHasIncludes($transformer)
     {
-        if (! $transformer instanceof TransformerAbstract) {
+        if (!$transformer instanceof TransformerAbstract) {
             return false;
         }
 
         $defaultIncludes = $transformer->getDefaultIncludes();
         $availableIncludes = $transformer->getAvailableIncludes();
 
-        return ! empty($defaultIncludes) || ! empty($availableIncludes);
+        return !empty($defaultIncludes) || !empty($availableIncludes);
     }
 
     /**
